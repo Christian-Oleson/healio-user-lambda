@@ -1,0 +1,51 @@
+name: Publish Healiospace User Lambda to AWS S3
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Zip Lambda
+        run: zip -r Healiospace.UserLambda.zip . -x '*.git*' 'test.mjs' '*.md' '*.yml' '*.gitignore'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Configure S3 Values
+        id: s3-config
+        run: |
+          s3Bucket="your-s3-bucket-name"
+          s3Key="lambda/Healiospace.UserLambda.zip"
+
+          echo "S3_BUCKET=$s3Bucket" >> $GITHUB_ENV
+          echo "S3_KEY=$s3Key" >> $GITHUB_ENV
+          echo "S3_URL=s3://$s3Bucket/$s3Key" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Upload Archive To S3
+        run: aws s3 cp "./Healiospace.UserLambda.zip" "$S3_URL"
+
+      - name: Update Lambda Function
+        run: aws lambda update-function-code --function-name YourUserLambdaFunctionName --s3-bucket ${{ env.S3_BUCKET }} --s3-key ${{ env.S3_KEY }} --publish

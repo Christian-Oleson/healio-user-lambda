@@ -1,0 +1,23 @@
+{
+  "name": "healio-user-lambda",
+  "version": "1.0.0",
+  "description": "A lambda for cognito user events",
+  "homepage": "https://github.com/Christian-Oleson/healio-user-lambda#readme",
+  "bugs": {
+    "url": "https://github.com/Christian-Oleson/healio-user-lambda/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christian-Oleson/healio-user-lambda.git"
+  },
+  "license": "ISC",
+  "author": "Christian Oleson",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1692.0"
+  }
+}
