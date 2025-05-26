@@ -26,8 +26,11 @@ jobs:
       - name: Build TypeScript
         run: npm run build
 
+      - name: Copy dist to root for zipping
+        run: cp -r dist/* .
+
       - name: Zip Lambda
-        run: zip -r Healiospace.UserLambda.zip dist/*
+        run: zip -r Healiospace.UserLambda.zip ./*.js ./*.json
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
