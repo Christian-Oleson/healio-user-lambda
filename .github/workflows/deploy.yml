@@ -23,8 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build TypeScript
+        run: npm run build
+
       - name: Zip Lambda
-        run: zip -r Healiospace.UserLambda.zip . -x '*.git*' 'test.mjs' '*.md' '*.yml' '*.gitignore'
+        run: zip -r Healiospace.UserLambda.zip dist/*
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
