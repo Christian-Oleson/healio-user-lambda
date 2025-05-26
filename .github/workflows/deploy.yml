@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: Copy dist files to root
-        run: cp dist/*.ts dist/*.js dist/*.json .
+        run: cp dist/** .
 
       - name: Zip Lambda
         run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.js ./*.json dist/**
