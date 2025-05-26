@@ -16,6 +16,11 @@ export const handler = async (event) => {
         event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
         event.response.emailSubject = `Your ${APP_NAME} Account Has Been Created`;
         event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter);
+    } else {
+        console.warn(`Unhandled trigger source: ${event.triggerSource}`);
+        event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
+        event.response.emailSubject = `Your ${APP_NAME} Account Has Been Created`;
+        event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter);
     }
 
     return event;
