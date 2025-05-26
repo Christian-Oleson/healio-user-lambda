@@ -27,7 +27,7 @@ jobs:
         run: npm run build
 
       - name: Zip Lambda
-        run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.json
+        run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.json ./**/dist
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
