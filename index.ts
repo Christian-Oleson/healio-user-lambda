@@ -38,6 +38,9 @@ export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
     event.response.emailSubject = `Your ${APP_NAME} Account Has Been Created`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter);
   }
+  console.log('---------Output----------');
+  console.log('Event:', JSON.stringify(event, null, 2));
+
 
   return event;
 };
