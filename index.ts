@@ -24,7 +24,8 @@ export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   } else if (event.triggerSource === 'CustomMessage_ForgotPassword') {
     event.response.smsMessage = `Reset your ${APP_NAME} password using this code: ${event.request.codeParameter}`;
     event.response.emailSubject = `Reset Your ${APP_NAME} Password`;
-    event.response.emailMessage = forgotPasswordEmail(event.request.codeParameter);  } else if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
+    event.response.emailMessage = forgotPasswordEmail(event.request.codeParameter);
+  } else if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
     const username = event.request.usernameParameter || '';
     const email = event.request.userAttributes?.email || '';
     
