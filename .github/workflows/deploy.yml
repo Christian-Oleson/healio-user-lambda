@@ -20,14 +20,20 @@ jobs:
         with:
           node-version: '22.x'
 
+      - name: Ensure dist directory exists
+        run: mkdir -p dist
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build TypeScript
-        run: npm run build
+        run: npm run build4
+
+      - name: Copy dist files to root
+        run: cp dist/*.ts dist/*.js dist/*.json .
 
       - name: Zip Lambda
-        run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.js ./*.json dist/**/*.ts dist/**/*.js dist/**/*.json
+        run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.js ./*.json dist/**
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
