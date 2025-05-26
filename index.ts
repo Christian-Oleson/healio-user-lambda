@@ -16,6 +16,7 @@ export interface CognitoEvent {
 
 export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   console.log('Event:', JSON.stringify(event, null, 2));
+try {
 
   if (event.triggerSource === 'CustomMessage_SignUp') {
     event.response.smsMessage = `Welcome to ${APP_NAME}! Your verification code is ${event.request.codeParameter}`;
@@ -28,7 +29,7 @@ export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   } else if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
     const username = event.request.usernameParameter || '';
     const email = event.request.userAttributes?.email || '';
-    
+
     event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
     event.response.emailSubject = `Welcome to ${APP_NAME} - Your Account is Ready`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter, username);
@@ -40,8 +41,9 @@ export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   }
   console.log('---------Output----------');
   console.log('Event:', JSON.stringify(event, null, 2));
-
-
+} catch (error) {
+    console.error('Error processing event:', error);
+}
   return event;
 };
 
