@@ -1,4 +1,4 @@
-import { APP_NAME } from './config.mjs';
+import { APP_NAME } from './config.js';
 
 const baseStyles = `
   body {
@@ -42,7 +42,7 @@ const baseStyles = `
   }
 `;
 
-export function signUpEmail(code) {
+export function signUpEmail(code: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,7 +64,7 @@ export function signUpEmail(code) {
 </html>`;
 }
 
-export function forgotPasswordEmail(code) {
+export function forgotPasswordEmail(code: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -86,7 +86,7 @@ export function forgotPasswordEmail(code) {
 </html>`;
 }
 
-export function adminCreateUserEmail(code) {
+export function adminCreateUserEmail(code: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>

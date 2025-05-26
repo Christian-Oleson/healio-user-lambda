@@ -13,17 +13,20 @@
   "license": "ISC",
   "author": "Christian Oleson",
   "type": "module",
-  "main": "index.mjs",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node test.mjs",
+    "start": "node dist/test.js",
+    "build": "tsc",
     "test": "vitest run"
   },
   "dependencies": {
     "aws-sdk": "^2.1692.0"
   },
   "devDependencies": {
+    "@types/node": "^22.15.21",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
     "vitest": "^3.1.4"
   }
 }

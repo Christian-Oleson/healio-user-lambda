@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.mjs';
-import { handler } from './index.mjs';
-import { APP_NAME } from './config.mjs';
+import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.js';
+import { handler, CognitoEvent } from './index.js';
+import { APP_NAME } from './config.js';
 
 // Email template tests
 
@@ -33,7 +33,7 @@ describe('Email Templates', () => {
 
 describe('Lambda Handler', () => {
   it('handles CustomMessage_SignUp', async () => {
-    const event = {
+    const event: CognitoEvent = {
       triggerSource: 'CustomMessage_SignUp',
       request: { codeParameter: '111111' },
       response: {}
@@ -44,7 +44,7 @@ describe('Lambda Handler', () => {
   });
 
   it('handles CustomMessage_ForgotPassword', async () => {
-    const event = {
+    const event: CognitoEvent = {
       triggerSource: 'CustomMessage_ForgotPassword',
       request: { codeParameter: '222222' },
       response: {}
@@ -54,7 +54,7 @@ describe('Lambda Handler', () => {
   });
 
   it('handles CustomMessage_AdminCreateUser', async () => {
-    const event = {
+    const event: CognitoEvent = {
       triggerSource: 'CustomMessage_AdminCreateUser',
       request: { codeParameter: '333333' },
       response: {}
