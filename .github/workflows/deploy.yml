@@ -36,7 +36,7 @@ jobs:
       - name: Configure S3 Values
         id: s3-config
         run: |
-          s3Bucket="infrastack-hsusercognitobucket82ade0c3-q0aqjhkeimn9"
+          s3Bucket="infrastack-hsapibucketb0ffce48-q7fxihjt4x6e"
           s3Key="lambda/Healiospace.UserLambda.zip"
 
           echo "S3_BUCKET=$s3Bucket" >> $GITHUB_ENV
