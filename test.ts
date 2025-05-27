@@ -14,4 +14,3 @@ handler(event)
     .catch((err: any) => {
         console.error('Error:', err);
     });
-

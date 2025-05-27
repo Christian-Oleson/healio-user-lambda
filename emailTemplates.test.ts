@@ -29,6 +29,32 @@ describe('Email Templates', () => {
   });
 });
 
+describe('Email Templates HTML', () => {
+  it('signUpEmail HTML structure and content', () => {
+    const code = 'abc123';
+    const html = signUpEmail(code);
+
+    // Expect
+    expect(html).toMatchSnapshot();
+  });
+
+  it('forgotPasswordEmail HTML structure and content', () => {
+    const code = 'reset321';
+    const html = forgotPasswordEmail(code);
+
+    // Expect
+    expect(html).toMatchSnapshot();
+  });
+
+  it('adminCreateUserEmail HTML structure and content', () => {
+    const code = 'tempPass!';
+    const html = adminCreateUserEmail(code);
+
+    // Expect
+    expect(html).toMatchSnapshot();
+  });
+});
+
 // Handler tests
 
 describe('Lambda Handler', () => {
