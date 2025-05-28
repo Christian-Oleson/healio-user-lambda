@@ -1,6 +1,6 @@
 import { APP_NAME } from './config.js';
 
-const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com/"
+const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com"
 const baseStyles = `
     body {
         font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
@@ -168,3 +168,15 @@ export function adminCreateUserEmail(code: string, username: string = ''): strin
     secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.'
   });
 }
+
+export function preSignUpEmail(givenName: string = 'User'): string {
+  return baseEmailTemplate({
+    title: `Welcome to ${APP_NAME}`,
+    heading: `Welcome, ${givenName}!`,
+    message: `Thank you for signing up for <b>${APP_NAME}</b>. We're excited to have you join our community!<br><br>Your account is being processed, and you will receive a verification code shortly to complete your registration.`,
+    buttonText: 'Learn More',
+    buttonUrl: `${rootURL}/about`,
+    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.'
+  });
+}
+

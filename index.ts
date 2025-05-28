@@ -1,5 +1,5 @@
 import { APP_NAME } from './config.js';
-import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.js';
+import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail, preSignUpEmail } from './emailTemplates.js';
 
 export interface CognitoEvent {
   triggerSource: string;
@@ -33,16 +33,19 @@ try {
     event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
     event.response.emailSubject = `Welcome to ${APP_NAME} - Your Account is Ready`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter, username);
+  } else if (event.triggerSource === 'PreSignUp_SignUp') {
+    const givenName = event.request.userAttributes?.given_name || 'User';
+    // Use the preSignUpEmail template from emailTemplates.ts
+    event.response.customMessage = preSignUpEmail(givenName);
   } else {
     console.warn(`Unhandled trigger source: ${event.triggerSource}`);
     event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
     event.response.emailSubject = `Your ${APP_NAME} Account Has Been Created`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter);
   }
-  console.log('---------Output----------');
-  console.log('Event:', JSON.stringify(event, null, 2));
 } catch (error) {
     console.error('Error processing event:', error);
+    console.log('Event:', JSON.stringify(event, null, 2));
 }
   return event;
 };
