@@ -50,6 +50,8 @@ try {
     console.error('Error processing event:', error);
     console.log('Event:', JSON.stringify(event, null, 2));
 }
+  console.log('---------------output----------------');
+  console.log('Event:', JSON.stringify(event, null, 2));
   return event;
 };
 
