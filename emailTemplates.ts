@@ -1,4 +1,5 @@
 import { APP_NAME } from './config.js';
+import CognitoEvent from "./interfaces/cognitoEvent.js";
 
 const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com"
 const baseStyles = `
@@ -146,17 +147,17 @@ export function signUpEmail(code: string, showButton: boolean = false): string {
   });
 }
 
-export function forgotPasswordEmail(code: string, showButton: boolean = false): string {
+export function forgotPasswordEmail(cognitoEvent: CognitoEvent): string {
   return baseEmailTemplate({
     title: `Reset Your ${APP_NAME} Password`,
     heading: 'Password Reset Request',
     message: `We received a request to reset your <b>${APP_NAME}</b> password. Use the code below to proceed:`,
     codeLabel: 'Your Password Reset Code:',
-    code,
+    code: cognitoEvent.request.codeParameter,
     buttonText: 'Reset Password',
     buttonUrl: `${rootURL}/login`,
     secondaryText: 'If you did not request this, you can safely ignore this email.',
-    showButton
+    showButton: false
   });
 }
 

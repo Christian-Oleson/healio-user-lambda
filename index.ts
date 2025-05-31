@@ -1,21 +1,6 @@
 import { APP_NAME } from './config.js';
-import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail, preSignUpEmail } from './emailTemplates.js';
-
-export interface CognitoEvent {
-  triggerSource: string;
-  request: { 
-    codeParameter: string;
-    linkParameter?: string;
-    usernameParameter?: string;
-    userAttributes?: {
-      email: string;
-      family_name?: string;
-      given_name?: string | null;
-      [key: string]: string | undefined | null;
-    }
-  };
-  response: { [key: string]: any };
-}
+import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.js';
+import CognitoEvent from "./interfaces/cognitoEvent.js";
 
 export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   console.log('Event:', JSON.stringify(event, null, 2));
@@ -28,11 +13,9 @@ try {
   } else if (event.triggerSource === 'CustomMessage_ForgotPassword') {
     event.response.smsMessage = `Reset your ${APP_NAME} password using this code: ${event.request.codeParameter}`;
     event.response.emailSubject = `Reset Your ${APP_NAME} Password`;
-    event.response.emailMessage = forgotPasswordEmail(event.request.codeParameter);
+    event.response.emailMessage = forgotPasswordEmail(event);
   } else if (event.triggerSource === 'CustomMessage_AdminCreateUser') {
     const username = event.request.usernameParameter || '';
-    const email = event.request.userAttributes?.email || '';
-
     event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
     event.response.emailSubject = `Welcome to ${APP_NAME} - Your Account is Ready`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter, username);

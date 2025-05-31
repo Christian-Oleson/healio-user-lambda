@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.js';
-import { handler, CognitoEvent } from './index.js';
+import { handler } from './index.js';
 import { APP_NAME } from './config.js';
+import CognitoEvent from "./interfaces/cognitoEvent.js";
 
 // Email template tests
 
@@ -16,7 +17,12 @@ describe('Email Templates', () => {
 
   it('forgotPasswordEmail includes code and app name', () => {
     const code = '654321';
-    const html = forgotPasswordEmail(code);
+    const cognitoEvent: CognitoEvent = {
+        triggerSource: 'CustomMessage_ForgotPassword',
+        request: { codeParameter: code },
+        response: {}
+    }
+    const html = forgotPasswordEmail(cognitoEvent);
     expect(html).toContain(code);
     expect(html).toContain(APP_NAME);
   });
@@ -40,7 +46,12 @@ describe('Email Templates HTML', () => {
 
   it('forgotPasswordEmail HTML structure and content', () => {
     const code = 'reset321';
-    const html = forgotPasswordEmail(code);
+    const cognitoEvent: CognitoEvent = {
+      triggerSource: 'CustomMessage_ForgotPassword',
+      request: { codeParameter: code },
+      response: {}
+    }
+    const html = forgotPasswordEmail(cognitoEvent);
 
     // Expect
     expect(html).toMatchSnapshot();
