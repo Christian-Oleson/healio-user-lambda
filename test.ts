@@ -76,15 +76,42 @@ const testEvents = {
   }
 };
 
+// Run all tests
+console.log('Running all tests...');
+
+// Process each test event one after another using async/await
+async function runAllTests() {
+  for (const [testName, testEvent] of Object.entries(testEvents)) {
+    console.log(`---------- Running test: ${testName} ----------`);
+    createNewLin();
+    try {
+      const result = await handler(testEvent as CognitoEvent);
+      console.log('Result:', JSON.stringify(result, null, 2));
+      createNewLin();
+    } catch (err) {
+      console.error(`Error in test ${testName}:`, err);
+      createNewLin();
+    }
+  }
+}
+
+runAllTests().catch(err => {
+  console.error('Unexpected error running tests:', err);
+});
+
 // Choose which test to run
 const testToRun = 'preSignUp'; // Change this to run different tests: 'signUp', 'forgotPassword', 'adminCreateUser', or 'preSignUp'
 
 // Run the selected test
 console.log(`Running test: ${testToRun}`);
 handler(testEvents[testToRun] as CognitoEvent)
-  .then((result: any) => {
-    console.log('Lambda result:', JSON.stringify(result, null, 2));
-  })
-  .catch((err: any) => {
-    console.error('Error:', err);
-  });
+    .then((result: any) => {
+      console.log('Lambda result:', JSON.stringify(result, null, 2));
+    })
+    .catch((err: any) => {
+      console.error('Error:', err);
+    });
+
+function createNewLin() {
+  console.log("\r\n");
+}

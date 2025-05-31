@@ -15,7 +15,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/test.js",
+    "start": "tsc && node dist/test.js",
     "build": "tsc",
     "test": "vitest run"
   },
