@@ -11,7 +11,7 @@ export interface CognitoEvent {
       email: string;
       family_name?: string;
       given_name?: string | null;
-      [key: string]: string;
+      [key: string]: string | undefined | null;
     }
   };
   response: { [key: string]: any };
