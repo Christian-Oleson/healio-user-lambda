@@ -19,6 +19,7 @@ export interface CognitoEvent {
 
 export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
   console.log('Event:', JSON.stringify(event, null, 2));
+  return event;
 try {
 
   if (event.triggerSource === 'CustomMessage_SignUp') {
