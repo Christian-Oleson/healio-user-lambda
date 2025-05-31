@@ -87,7 +87,8 @@ function baseEmailTemplate({
   code,
   buttonText,
   buttonUrl,
-  secondaryText
+  secondaryText,
+  showButton = true
 }: {
   title: string;
   heading: string;
@@ -97,6 +98,7 @@ function baseEmailTemplate({
   buttonText?: string;
   buttonUrl?: string;
   secondaryText?: string;
+  showButton?: boolean;
 }): string {
   const currentYear = new Date().getFullYear();
   return `<!DOCTYPE html>
@@ -118,7 +120,7 @@ function baseEmailTemplate({
         ${codeLabel ? `<p><strong>${codeLabel}</strong></p>` : ''}
         <div class="code">${code}</div>
     </div>` : ''}
-    ${buttonText && buttonUrl ? `<p style="text-align: center;"><a href="${buttonUrl}" class="button">${buttonText}</a></p>` : ''}
+    ${(showButton && buttonText && buttonUrl) ? `<p style="text-align: center;"><a href="${buttonUrl}" class="button">${buttonText}</a></p>` : ''}
     ${secondaryText ? `<p class="secondary-text">${secondaryText}</p>` : ''}
     <div class="divider"></div>
     <div class="footer">
@@ -130,7 +132,7 @@ function baseEmailTemplate({
 </html>`;
 }
 
-export function signUpEmail(code: string): string {
+export function signUpEmail(code: string, showButton: boolean = false): string {
   return baseEmailTemplate({
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome to ${APP_NAME}!`,
@@ -139,11 +141,12 @@ export function signUpEmail(code: string): string {
     code,
     buttonText: 'Sign In Now',
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you did not request this, you can safely ignore this email.'
+    secondaryText: 'If you did not request this, you can safely ignore this email.',
+    showButton
   });
 }
 
-export function forgotPasswordEmail(code: string): string {
+export function forgotPasswordEmail(code: string, showButton: boolean = false): string {
   return baseEmailTemplate({
     title: `Reset Your ${APP_NAME} Password`,
     heading: 'Password Reset Request',
@@ -152,11 +155,12 @@ export function forgotPasswordEmail(code: string): string {
     code,
     buttonText: 'Reset Password',
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you did not request this, you can safely ignore this email.'
+    secondaryText: 'If you did not request this, you can safely ignore this email.',
+    showButton
   });
 }
 
-export function adminCreateUserEmail(code: string, username: string = ''): string {
+export function adminCreateUserEmail(code: string, username: string = '', showButton: boolean = true): string {
   return baseEmailTemplate({
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome to ${APP_NAME}!`,
@@ -165,11 +169,12 @@ export function adminCreateUserEmail(code: string, username: string = ''): strin
     code,
     buttonText: 'Sign In Now',
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.'
+    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
+    showButton
   });
 }
 
-export function preSignUpEmail(givenName: string = 'User', code?: string): string {
+export function preSignUpEmail(givenName: string = 'User', code?: string, showButton: boolean = false): string {
   return baseEmailTemplate({
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome, ${givenName}!`,
@@ -178,7 +183,8 @@ export function preSignUpEmail(givenName: string = 'User', code?: string): strin
     code,
     buttonText: 'Learn More',
     buttonUrl: `${rootURL}/about`,
-    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.'
+    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
+    showButton
   });
 }
 

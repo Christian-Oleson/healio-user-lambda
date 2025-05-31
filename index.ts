@@ -36,11 +36,6 @@ try {
     event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
     event.response.emailSubject = `Welcome to ${APP_NAME} - Your Account is Ready`;
     event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter, username);
-  } else if (event.triggerSource === 'PreSignUp_SignUp ERRORING') {
-    const givenName = event.request.userAttributes?.given_name || 'User';
-    event.response.smsMessage = `Welcome to ${APP_NAME}! Your verification code is ${event.request.codeParameter}`;
-    event.response.emailSubject = `Verify your ${APP_NAME} account`;
-    event.response.emailMessage = preSignUpEmail(givenName, event.request.codeParameter);
   } else {
     console.warn(`Unhandled trigger source: ${event.triggerSource}`);
     return event;

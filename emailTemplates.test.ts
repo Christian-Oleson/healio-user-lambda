@@ -88,21 +88,4 @@ describe('Lambda Handler', () => {
     const result = await handler(event);
     expect(result.response.emailMessage).toContain('333333');
   });
-
-  it('handles PreSignUp_SignUp and sets a custom message', async () => {
-    const event: CognitoEvent = {
-      triggerSource: 'PreSignUp_SignUp',
-      request: {
-        codeParameter: '',
-        userAttributes: {
-          given_name: 'Christian',
-          email: 'test@example.com'
-        }
-      },
-      response: {}
-    };
-    const result = await handler(event);
-    expect(result.response.customMessage).toContain('Thank you for signing up for');
-    expect(result.response.customMessage).toContain('Christian');
-  });
 });
