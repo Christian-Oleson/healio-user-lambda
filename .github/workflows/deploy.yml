@@ -20,20 +20,28 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: Ensure dist directory exists
-        run: mkdir -p dist
-
       - name: Install dependencies
         run: npm ci
 
       - name: Build TypeScript
         run: npm run build
 
-      - name: Copy dist files to root
-        run: cp -r dist/** .
+      - name: Prepare deployment structure
+        run: |
+          # Create a deployment directory for the proper package structure
+          mkdir -p deployment
+          
+          # Copy compiled JS files to the deployment folder
+          cp -r dist/* deployment/
+          
+          # Copy package files for runtime dependencies
+          cp package.json deployment/
+          
+          # Install production dependencies in the deployment folder
+          cd deployment && npm ci --production && cd ..
 
       - name: Zip Lambda
-        run: zip -r Healiospace.UserLambda.zip ./*.ts ./*.js ./*.json dist/**
+        run: cd deployment && zip -r ../Healiospace.UserLambda.zip .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
