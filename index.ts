@@ -8,13 +8,10 @@ Sentry.init({
   sendDefaultPii: true,
 });
 
-import { APP_NAME } from './config.js';
-import { adminCreateUserEmail } from './emailTemplates.js';
 import { CognitoEvent } from './interfaces/cognitoEvent.js';
 import { TriggerStrategy } from './interfaces/triggerStrategy.js';
 import { AdminCreateUserStrategy } from './strategies/adminCreateUserStrategy.js';
 import { ForgotPasswordStrategy } from './strategies/forgotPasswordStrategy.js';
-import { PreSignUpStrategy } from './strategies/preSignUpStrategy.js';
 import { SignUpStrategy } from './strategies/signUpStrategy.js';
 
 // Strategy factory to get the appropriate handler for each trigger type
@@ -26,7 +23,6 @@ class TriggerStrategyFactory {
     this.strategies.set('CustomMessage_SignUp', new SignUpStrategy());
     this.strategies.set('CustomMessage_ForgotPassword', new ForgotPasswordStrategy());
     this.strategies.set('CustomMessage_AdminCreateUser', new AdminCreateUserStrategy());
-    this.strategies.set('PreSignUp_SignUp', new PreSignUpStrategy());
   }
 
   getStrategy(triggerSource: string): TriggerStrategy {
@@ -41,9 +37,6 @@ class TriggerStrategyFactory {
     return {
       handle: async (event: CognitoEvent): Promise<CognitoEvent> => {
         console.warn(`Unhandled trigger source: ${event.triggerSource}`);
-        event.response.smsMessage = `Your ${APP_NAME} account has been created. Temporary password: ${event.request.codeParameter}`;
-        event.response.emailSubject = `Your ${APP_NAME} Account Has Been Created`;
-        event.response.emailMessage = adminCreateUserEmail(event.request.codeParameter);
         return event;
       }
     };
