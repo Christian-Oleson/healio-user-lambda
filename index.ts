@@ -26,7 +26,6 @@ class TriggerStrategyFactory {
     this.strategies.set('CustomMessage_SignUp', new SignUpStrategy());
     this.strategies.set('CustomMessage_ForgotPassword', new ForgotPasswordStrategy());
     this.strategies.set('CustomMessage_AdminCreateUser', new AdminCreateUserStrategy());
-    this.strategies.set('PreSignUp_SignUp', new PreSignUpStrategy());
   }
 
   getStrategy(triggerSource: string): TriggerStrategy {
