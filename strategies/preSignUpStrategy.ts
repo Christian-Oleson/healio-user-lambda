@@ -8,7 +8,7 @@ export class PreSignUpStrategy implements TriggerStrategy {
     const givenName = event.request.userAttributes?.given_name || 'User';
 
     // Add required SMS and email messages with code parameter
-    event.response.smsMessage = `Welcome to ${APP_NAME}! Your verification code is ${event.request.codeParameter}`;
+    event.response.smsMessage = `Welcome to ${APP_NAME}! Your verification code is found inside.`;
     event.response.emailSubject = `Verify your ${APP_NAME} account`;
     event.response.emailMessage = preSignUpEmail(givenName, event.request.codeParameter);
 
