@@ -17,24 +17,6 @@ import { ForgotPasswordStrategy } from './strategies/forgotPasswordStrategy.js';
 import { PreSignUpStrategy } from './strategies/preSignUpStrategy.js';
 import { SignUpStrategy } from './strategies/signUpStrategy.js';
 
-exports.handler = Sentry.wrapHandler(async (event: CognitoEvent, context) => {
-  // Your handler code
-  console.log('Event:', JSON.stringify(event, null, 2));
-
-  try {
-    const strategyFactory = new TriggerStrategyFactory();
-    const strategy = strategyFactory.getStrategy(event.triggerSource);
-    event = await strategy.handle(event);
-  } catch (error) {
-    console.error('Error processing event:', error);
-    console.log('Event:', JSON.stringify(event, null, 2));
-  }
-
-  console.log('---------------output----------------');
-  console.log('Event:', JSON.stringify(event, null, 2));
-  return event;
-});
-
 // Strategy factory to get the appropriate handler for each trigger type
 class TriggerStrategyFactory {
   private strategies: Map<string, TriggerStrategy>;
@@ -67,3 +49,20 @@ class TriggerStrategyFactory {
     };
   }
 }
+
+export const handler = async (event: CognitoEvent): Promise<CognitoEvent> => {
+  console.log('Event:', JSON.stringify(event, null, 2));
+
+  try {
+    const strategyFactory = new TriggerStrategyFactory();
+    const strategy = strategyFactory.getStrategy(event.triggerSource);
+    event = await strategy.handle(event);
+  } catch (error) {
+    console.error('Error processing event:', error);
+    console.log('Event:', JSON.stringify(event, null, 2));
+  }
+
+  console.log('---------------output----------------');
+  console.log('Event:', JSON.stringify(event, null, 2));
+  return event;
+};
