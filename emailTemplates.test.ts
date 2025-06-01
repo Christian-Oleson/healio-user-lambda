@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { signUpEmail, forgotPasswordEmail, adminCreateUserEmail } from './emailTemplates.js';
 import { handler } from './index.js';
 import { APP_NAME } from './config.js';
-import CognitoEvent from "./interfaces/cognitoEvent.js";
+import { CognitoEvent } from "./interfaces/cognitoEvent.js";
 
 // Email template tests
 
