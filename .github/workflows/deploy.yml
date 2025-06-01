@@ -38,7 +38,7 @@ jobs:
           cp package.json deployment/
           
           # Install production dependencies in the deployment folder
-          cd deployment && npm ci --production && cd ..
+          cd deployment && npm install --omit=dev && cd ..
 
       - name: Zip Lambda
         run: cd deployment && zip -r ../Healiospace.UserLambda.zip .
