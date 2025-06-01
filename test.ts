@@ -1,6 +1,6 @@
 // filepath: c:\Projects\healio-user-lambda\test.ts
 import { handler } from './index.js';
-import CognitoEvent from "./interfaces/cognitoEvent.js";
+import {CognitoEvent} from "./interfaces/cognitoEvent.js";
 
 // Define different test events
 const testEvents = {

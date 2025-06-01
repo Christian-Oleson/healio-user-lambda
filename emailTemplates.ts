@@ -1,5 +1,5 @@
 import { APP_NAME } from './config.js';
-import CognitoEvent from "./interfaces/cognitoEvent.js";
+import {CognitoEvent} from "./interfaces/cognitoEvent.js";
 
 const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com"
 const baseStyles = `
