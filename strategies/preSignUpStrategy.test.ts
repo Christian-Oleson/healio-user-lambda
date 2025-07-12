@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { PreSignUpStrategy } from '../strategies/preSignUpStrategy';
-import { CognitoEvent } from '../interfaces/cognitoEvent';
-import { APP_NAME } from '../config';
-import { preSignUpEmail } from '../emailTemplates';
+import {PreSignUpStrategy} from "./preSignUpStrategy.js";
+import {CognitoEvent} from "../interfaces/cognitoEvent.js";
+import { APP_NAME } from '../config.js';
 
 describe('PreSignUpStrategy', () => {
   const strategy = new PreSignUpStrategy();
