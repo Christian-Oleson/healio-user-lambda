@@ -20,7 +20,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@sentry/aws-serverless": "^9.39.0",
+    "@sentry/aws-serverless": "^9.40.0",
     "aws-sdk": "^2.1692.0"
   },
   "devDependencies": {
