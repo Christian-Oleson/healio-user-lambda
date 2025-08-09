@@ -9,7 +9,7 @@ export interface CognitoEvent {
       family_name?: string;
       given_name?: string | null;
       [key: string]: string | undefined | null;
-    }
+    };
   };
   response: { [key: string]: any };
 }

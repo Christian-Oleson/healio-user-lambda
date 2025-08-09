@@ -1,2 +1,1 @@
-export const APP_NAME: string = 'Healiospace';
-
+export const APP_NAME: string = "Healiospace";
