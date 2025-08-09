@@ -149,8 +149,8 @@ cd deployment && npm install --omit=dev && cd ..
 cd deployment && zip -r ../Healiospace.UserLambda.zip .
 
 # Upload to AWS (requires AWS CLI configured)
-aws s3 cp "./Healiospace.UserLambda.zip" "s3://your-bucket/lambda/"
-aws lambda update-function-code --function-name "your-function-name" --s3-bucket "your-bucket" --s3-key "lambda/Healiospace.UserLambda.zip"
+aws s3 cp "./Healiospace.UserLambda.zip" "s3://infrastack-hsapibucketb0ffce48-q7fxihjt4x6e/lambda/"
+aws lambda update-function-code --function-name "InfraStack-hsuserlambda7402A172-AQlkiNzXUDR2" --s3-bucket "infrastack-hsapibucketb0ffce48-q7fxihjt4x6e" --s3-key "lambda/Healiospace.UserLambda.zip"
 ```
 
 ## Configuration
