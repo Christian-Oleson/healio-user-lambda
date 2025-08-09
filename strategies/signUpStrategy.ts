@@ -1,7 +1,7 @@
-import { APP_NAME } from '../config.js';
-import { signUpEmail } from '../emailTemplates.js';
-import { CognitoEvent } from '../interfaces/cognitoEvent.js';
-import { TriggerStrategy } from '../interfaces/triggerStrategy.js';
+import { APP_NAME } from "../config.js";
+import { signUpEmail } from "../emailTemplates.js";
+import { CognitoEvent } from "../interfaces/cognitoEvent.js";
+import { TriggerStrategy } from "../interfaces/triggerStrategy.js";
 
 export class SignUpStrategy implements TriggerStrategy {
   async handle(event: CognitoEvent): Promise<CognitoEvent> {
