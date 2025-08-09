@@ -1,7 +1,7 @@
-import { APP_NAME } from './config.js';
-import {CognitoEvent} from "./interfaces/cognitoEvent.js";
+import { APP_NAME } from "./config.js";
+import { CognitoEvent } from "./interfaces/cognitoEvent.js";
 
-const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com"
+const rootURL = "https://main.d2yakdlwmmo9ua.amplifyapp.com";
 const baseStyles = `
     body {
         font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
@@ -89,7 +89,7 @@ function baseEmailTemplate({
   buttonText,
   buttonUrl,
   secondaryText,
-  showButton = true
+  showButton = true,
 }: {
   title: string;
   heading: string;
@@ -117,12 +117,16 @@ function baseEmailTemplate({
     </div>
     <h2>${heading}</h2>
     <p>${message}</p>
-    ${code ? `<div class="code-container">
-        ${codeLabel ? `<p><strong>${codeLabel}</strong></p>` : ''}
+    ${
+      code
+        ? `<div class="code-container">
+        ${codeLabel ? `<p><strong>${codeLabel}</strong></p>` : ""}
         <div class="code">${code}</div>
-    </div>` : ''}
-    ${(showButton && buttonText && buttonUrl) ? `<p style="text-align: center;"><a href="${buttonUrl}" class="button">${buttonText}</a></p>` : ''}
-    ${secondaryText ? `<p class="secondary-text">${secondaryText}</p>` : ''}
+    </div>`
+        : ""
+    }
+    ${showButton && buttonText && buttonUrl ? `<p style="text-align: center;"><a href="${buttonUrl}" class="button">${buttonText}</a></p>` : ""}
+    ${secondaryText ? `<p class="secondary-text">${secondaryText}</p>` : ""}
     <div class="divider"></div>
     <div class="footer">
         <p>© ${currentYear} ${APP_NAME}. All rights reserved.</p>
@@ -138,54 +142,65 @@ export function signUpEmail(code: string, showButton: boolean = false): string {
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome to ${APP_NAME}!`,
     message: `Thank you for joining <b>${APP_NAME}</b>. To complete your registration, please use the verification code below:`,
-    codeLabel: 'Your Verification Code:',
+    codeLabel: "Your Verification Code:",
     code,
-    buttonText: 'Sign In Now',
+    buttonText: "Sign In Now",
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you did not request this, you can safely ignore this email.',
-    showButton
+    secondaryText:
+      "If you did not request this, you can safely ignore this email.",
+    showButton,
   });
 }
 
 export function forgotPasswordEmail(cognitoEvent: CognitoEvent): string {
   return baseEmailTemplate({
     title: `Reset Your ${APP_NAME} Password`,
-    heading: 'Password Reset Request',
+    heading: "Password Reset Request",
     message: `We received a request to reset your <b>${APP_NAME}</b> password. Use the code below to proceed:`,
-    codeLabel: 'Your Password Reset Code:',
+    codeLabel: "Your Password Reset Code:",
     code: cognitoEvent.request.codeParameter,
-    buttonText: 'Reset Password',
+    buttonText: "Reset Password",
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you did not request this, you can safely ignore this email.',
-    showButton: false
+    secondaryText:
+      "If you did not request this, you can safely ignore this email.",
+    showButton: false,
   });
 }
 
-export function adminCreateUserEmail(code: string, username: string = '', showButton: boolean = true): string {
+export function adminCreateUserEmail(
+  code: string,
+  username: string = "",
+  showButton: boolean = true,
+): string {
   return baseEmailTemplate({
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome to ${APP_NAME}!`,
     message: `You have been invited to join the ${APP_NAME} platform. We're excited to have you on board!<br><br><strong>Getting Started:</strong><ol><li>Use the temporary password below to sign in</li><li>You'll be prompted to create your own password</li><li>Complete your profile to get the most out of ${APP_NAME}</li></ol>`,
-    codeLabel: 'Your Temporary Password:',
+    codeLabel: "Your Temporary Password:",
     code,
-    buttonText: 'Sign In Now',
+    buttonText: "Sign In Now",
     buttonUrl: `${rootURL}/login`,
-    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
-    showButton
+    secondaryText:
+      'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
+    showButton,
   });
 }
 
-export function preSignUpEmail(givenName: string = 'User', code?: string, showButton: boolean = false): string {
+export function preSignUpEmail(
+  givenName: string = "User",
+  code?: string,
+  showButton: boolean = false,
+): string {
   return baseEmailTemplate({
     title: `Welcome to ${APP_NAME}`,
     heading: `Welcome, ${givenName}!`,
-    message: `Thank you for signing up for <b>${APP_NAME}</b>. We're excited to have you join our community!<br><br>Your account is being processed${code ? ', and you can use the verification code below to complete your registration.' : ', and you will receive a verification code shortly to complete your registration.'}`,
-    codeLabel: code ? 'Your verification code:' : undefined,
+    message: `Thank you for signing up for <b>${APP_NAME}</b>. We're excited to have you join our community!<br><br>Your account is being processed${code ? ", and you can use the verification code below to complete your registration." : ", and you will receive a verification code shortly to complete your registration."}`,
+    codeLabel: code ? "Your verification code:" : undefined,
     code,
-    buttonText: 'Learn More',
+    buttonText: "Learn More",
     buttonUrl: `${rootURL}/about`,
-    secondaryText: 'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
-    showButton
+    secondaryText:
+      'If you have any questions or need assistance, please contact our support team at <a href="mailto:support@dosapes.com">support@dosapes.com</a>.',
+    showButton,
   });
 }
-
